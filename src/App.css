@@ -1,0 +1,169 @@
+.portfolio-wrapper {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  min-height: 100vh;
+  gap: 4rem;
+  padding: 1.5rem;
+}
+
+/* Left Column */
+.left-column {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 20px;
+  overflow: hidden;
+  height: calc(100vh - 3rem);
+}
+
+.hero-img-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.left-top {
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+}
+
+.brand-name {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.left-bottom {
+  position: relative;
+  z-index: 2;
+  padding: 2.5rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+}
+
+.bio-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.bio-text {
+  font-size: 0.95rem;
+  color: #cccccc;
+  line-height: 1.5;
+  max-width: 280px;
+}
+
+/* Right Column */
+.right-column {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
+  position: relative;
+}
+
+.top-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 8rem;
+}
+
+.top-item h3 {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+
+.top-item p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.main-content-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+}
+
+.content-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section-header {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  margin-bottom: 0.6rem;
+}
+
+.list-label {
+  color: #dddddd;
+}
+
+.list-value {
+  color: var(--text-secondary);
+}
+
+.badge-new {
+  background: #ff4d00;
+  color: white;
+  font-size: 0.7rem;
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-left: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.book-session-btn {
+  position: absolute;
+  bottom: 2rem;
+  right: 0;
+  background-color: var(--accent);
+  color: white;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.book-session-btn:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 1100px) {
+  .portfolio-wrapper {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 2rem;
+  }
+  
+  .left-column {
+    height: 600px;
+  }
+  
+  .top-grid {
+    margin-bottom: 4rem;
+  }
+}
