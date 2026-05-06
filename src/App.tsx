@@ -14,7 +14,7 @@ function App() {
         </div>
 
         <div className="left-bottom">
-          <h2 className="bio-title">Hallo, I'm Sandra.</h2>
+          <h2 className="bio-title">Hello, I'm Sandra.</h2>
           <p className="bio-text">
             I build my ideas, help others to shape theirs, and talk about everything design.
           </p>
