@@ -26,6 +26,61 @@ const sendBookingDetails = async (details: {
     year: 'numeric'
   });
 
+  const webhookUrl = import.meta.env.VITE_BOOKING_WEBHOOK_URL || "";
+
+  if (webhookUrl) {
+    let payload: any = {
+      name: details.name,
+      email: details.email,
+      date: formattedDate,
+      time: details.time,
+      notes: details.notes
+    };
+
+    // Auto-detect Discord or Slack webhook and format details beautifully
+    if (webhookUrl.includes("discord.com")) {
+      payload = {
+        embeds: [
+          {
+            title: "📅 New 1-on-1 Design Session Scheduled!",
+            color: 3447003, // Soft blue
+            fields: [
+              { name: "Name", value: details.name, inline: true },
+              { name: "Email", value: details.email, inline: true },
+              { name: "Date", value: formattedDate, inline: true },
+              { name: "Time", value: details.time, inline: true },
+              { name: "Notes", value: details.notes || "None", inline: false }
+            ],
+            footer: {
+              text: "Sandra's Portfolio Booking System"
+            },
+            timestamp: new Date().toISOString()
+          }
+        ]
+      };
+    } else if (webhookUrl.includes("slack.com") || webhookUrl.includes("hooks.slack.com")) {
+      payload = {
+        text: `📅 *New 1-on-1 Design Session Scheduled!*\n\n*Name:* ${details.name}\n*Email:* ${details.email}\n*Date:* ${formattedDate}\n*Time:* ${details.time}\n*Notes:* ${details.notes || "None"}`
+      };
+    }
+
+    try {
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (response.ok) {
+        // Webhook succeeded, return immediately and don't trigger the mailto draft!
+        return;
+      }
+      console.warn(`Webhook responded with status ${response.status}. Falling back to email client.`);
+    } catch (error) {
+      console.error("Webhook notification failed, falling back to email client:", error);
+    }
+  }
+
+  // Fallback: Open user's email client if no webhook URL is defined or if the webhook request fails
   const subject = `Design Session Booking - ${details.name}`;
   const body = `Hi Sandra,
 
@@ -40,31 +95,8 @@ Notes: ${details.notes || 'None'}
 
 Please reply to this email to confirm the session or send the invite link.`;
 
-  // Mailto url
   const mailtoUrl = `mailto:${OWNER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  
-  // 1. Open mail client to send email
   window.location.href = mailtoUrl;
-
-  // 2. Also send POST to webhook if configured in environment
-  const webhookUrl = import.meta.env.VITE_BOOKING_WEBHOOK_URL || "";
-  if (webhookUrl) {
-    try {
-      await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: details.name,
-          email: details.email,
-          date: formattedDate,
-          time: details.time,
-          notes: details.notes
-        })
-      });
-    } catch (error) {
-      console.error("Webhook notification failed:", error);
-    }
-  }
 };
 
 // --- Helper Functions for Calendar ---
