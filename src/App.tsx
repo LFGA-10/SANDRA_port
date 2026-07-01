@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 import './App.css';
 
-const OWNER_EMAIL = "sandraumutoni@gmail.com";
+const OWNER_EMAIL = "san.uus27@gmail.com";
 
 const sendBookingDetails = async (details: {
   name: string;
