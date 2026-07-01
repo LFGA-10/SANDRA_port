@@ -37,7 +37,9 @@ const sendBookingDetails = async (details: {
       notes: details.notes
     };
 
-    // Auto-detect Discord or Slack webhook and format details beautifully
+    let targetUrl = webhookUrl;
+
+    // Auto-detect Discord, Slack, Web3Forms, or Formspree/Generic webhook
     if (webhookUrl.includes("discord.com")) {
       payload = {
         embeds: [
@@ -62,10 +64,23 @@ const sendBookingDetails = async (details: {
       payload = {
         text: `📅 *New 1-on-1 Design Session Scheduled!*\n\n*Name:* ${details.name}\n*Email:* ${details.email}\n*Date:* ${formattedDate}\n*Time:* ${details.time}\n*Notes:* ${details.notes || "None"}`
       };
+    } else if (!webhookUrl.startsWith("http")) {
+      // If it's just a token/key (like a Web3Forms Access Key), send to Web3Forms API
+      targetUrl = "https://api.web3forms.com/submit";
+      payload = {
+        access_key: webhookUrl,
+        subject: `New Design Session Booking - ${details.name}`,
+        from_name: "Portfolio Booking System",
+        name: details.name,
+        email: details.email,
+        date: formattedDate,
+        time: details.time,
+        notes: details.notes || "None"
+      };
     }
 
     try {
-      const response = await fetch(webhookUrl, {
+      const response = await fetch(targetUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
