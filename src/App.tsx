@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { 
-  X, 
-  Clock, 
-  Calendar as CalendarIcon, 
-  ChevronLeft, 
-  ChevronRight, 
+import {
+  X,
+  Clock,
+  Calendar as CalendarIcon,
+  ChevronLeft,
+  ChevronRight,
   CheckCircle,
   Video
 } from 'lucide-react';
@@ -125,9 +125,9 @@ const getDaysInMonth = (date: Date) => {
   const month = date.getMonth();
   const firstDayIndex = new Date(year, month, 1).getDay();
   const totalDays = new Date(year, month + 1, 0).getDate();
-  
+
   const days: (number | null)[] = [];
-  
+
   for (let i = 0; i < firstDayIndex; i++) {
     days.push(null);
   }
@@ -147,8 +147,8 @@ const isDateInPast = (day: number, currentMonth: Date) => {
 const isSelectedDate = (day: number, currentMonth: Date, selectedDate: Date | null) => {
   if (!selectedDate) return false;
   return selectedDate.getDate() === day &&
-         selectedDate.getMonth() === currentMonth.getMonth() &&
-         selectedDate.getFullYear() === currentMonth.getFullYear();
+    selectedDate.getMonth() === currentMonth.getMonth() &&
+    selectedDate.getFullYear() === currentMonth.getFullYear();
 };
 
 const formatSelectedDate = (date: Date) => {
@@ -189,7 +189,7 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
-  
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [notes, setNotes] = useState('');
@@ -218,7 +218,7 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !selectedDate || !selectedTime) return;
-    
+
     await sendBookingDetails({
       name,
       email,
@@ -254,8 +254,8 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
           <div className="booking-left-panel">
             <div className="brand-logo-small" style={{ fontSize: '1rem', whiteSpace: 'nowrap' }}>SANDRA UMUTONI</div>
             <div className="booking-host">Sandra UMUTONI</div>
-            <h2 className="booking-session-title">1-on-1 Design Session</h2>
-            
+            <h2 className="booking-session-title">Project Discovery</h2>
+
             <div className="booking-meta-list">
               <div className="booking-meta-item">
                 <Clock size={16} />
@@ -263,7 +263,11 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
               </div>
               <div className="booking-meta-item">
                 <Video size={16} />
-                <span>Web conferencing details provided upon confirmation</span>
+                <span>Google Meet video call</span>
+              </div>
+              <div className="booking-meta-item">
+                <CheckCircle size={16} />
+                <span>Aligning on goals, scope, and timeline to shape your project.</span>
               </div>
             </div>
 
@@ -286,14 +290,14 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
             {step === 'datetime' && (
               <div className="datetime-pane">
                 <h3 className="pane-title">Select Date & Time</h3>
-                
+
                 <div className="datetime-split">
                   {/* Calendar view */}
                   <div className="calendar-container">
                     <div className="calendar-header">
-                      <button 
-                        className="cal-nav-btn" 
-                        onClick={handlePrevMonth} 
+                      <button
+                        className="cal-nav-btn"
+                        onClick={handlePrevMonth}
                         disabled={isPrevMonthDisabled}
                       >
                         <ChevronLeft size={16} />
@@ -317,10 +321,10 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
                         if (day === null) {
                           return <div key={`empty-${idx}`} className="grid-cell empty"></div>;
                         }
-                        
+
                         const isPast = isDateInPast(day, currentMonth);
                         const isSelected = isSelectedDate(day, currentMonth, selectedDate);
-                        
+
                         return (
                           <button
                             key={`day-${day}`}
@@ -354,7 +358,7 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
                                   {time}
                                 </button>
                                 {isTimeSelected && (
-                                  <button 
+                                  <button
                                     className="time-slot-confirm-btn animate-fade-in"
                                     onClick={() => setStep('form')}
                                   >
@@ -379,7 +383,7 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
             {step === 'form' && (
               <form onSubmit={handleSubmit} className="form-pane">
                 <h3 className="pane-title">Enter Details</h3>
-                
+
                 <div className="form-group">
                   <label htmlFor="name-input">Name *</label>
                   <input
@@ -405,20 +409,20 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="notes-input">Add details/notes</label>
+                  <label htmlFor="notes-input">Project details & goals</label>
                   <textarea
                     id="notes-input"
                     rows={4}
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
-                    placeholder="Please share anything that will help prepare for our meeting."
+                    placeholder="Please share a brief description of what you're looking to build, your timeline, and estimated budget."
                   />
                 </div>
 
                 <div className="form-actions">
-                  <button 
-                    type="button" 
-                    className="form-back-btn" 
+                  <button
+                    type="button"
+                    className="form-back-btn"
                     onClick={() => setStep('datetime')}
                   >
                     Back
@@ -441,7 +445,7 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
                 </p>
 
                 <div className="success-details-card">
-                  <h4>1-on-1 Design Session</h4>
+                  <h4>Project Discovery Call</h4>
                   <div className="details-card-item">
                     <CalendarIcon size={16} />
                     <span>
@@ -450,7 +454,7 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
                   </div>
                   <div className="details-card-item">
                     <Video size={16} />
-                    <span>Web conferencing details provided via email</span>
+                    <span>Google Meet invitation link will be sent to your email</span>
                   </div>
                 </div>
 
@@ -477,7 +481,7 @@ function App() {
         <div className="hero-img-container">
           <img src="/Orange.jpg" alt="Sandra" className="hero-img" />
         </div>
-        
+
         <div className="left-top">
           <h1 className="brand-name" style={{ fontSize: '1.4rem', whiteSpace: 'nowrap' }}>SANDRA UMUTONI</h1>
         </div>
@@ -485,7 +489,7 @@ function App() {
         <div className="left-bottom">
           <h2 className="bio-title">Hallo, I'm Sandra UMUTONI.</h2>
           <p className="bio-text">
-            I build my ideas, help others to shape theirs, and talk about everything design.
+            I partner with startups and tech brands to design digital products, interactive interfaces, and scalable systems. Specialized in Figma design systems and rapid prototyping.
           </p>
         </div>
       </section>
@@ -587,48 +591,44 @@ function App() {
               <h2 className="section-header">Stack</h2>
               <ul className="links-list">
                 <li className="list-item">
+                  <span className="list-label">Figma</span>
+                  <span className="list-value">Design Systems</span>
+                </li>
+                <li className="list-item">
                   <span className="list-label">Framer</span>
-                  <span className="list-value">Web design</span>
+                  <span className="list-value">Interactive Prototypes</span>
                 </li>
                 <li className="list-item">
                   <span className="list-label">Typefully</span>
-                  <span className="list-value">Web design</span>
+                  <span className="list-value">Content Strategy</span>
                 </li>
                 <li className="list-item">
-                  <span className="list-label">Overrrides</span>
-                  <span className="list-value">Web design</span>
+                  <span className="list-label">Overrides</span>
+                  <span className="list-value">React Code & Logic</span>
                 </li>
                 <li className="list-item">
                   <span className="list-label">Circle</span>
-                  <span className="list-value">Web design</span>
+                  <span className="list-value">Community Layouts</span>
                 </li>
                 <li className="list-item">
                   <span className="list-label">Iconists</span>
-                  <span className="list-value">Web design</span>
+                  <span className="list-value">Custom SVG/Vector</span>
                 </li>
                 <li className="list-item">
                   <span className="list-label">Screen Studio</span>
-                  <span className="list-value">Web design</span>
+                  <span className="list-value">Product Videos</span>
                 </li>
                 <li className="list-item">
                   <span className="list-label">Relume</span>
-                  <span className="list-value">Web design</span>
+                  <span className="list-value">UX Wireframing</span>
                 </li>
                 <li className="list-item">
                   <span className="list-label">Cleanshot</span>
-                  <span className="list-value">Web design</span>
+                  <span className="list-value">UI Telemetry</span>
                 </li>
                 <li className="list-item">
                   <span className="list-label">Helpscout</span>
-                  <span className="list-value">Web design</span>
-                </li>
-                <li className="list-item">
-                  <span className="list-label">Figma</span>
-                  <span className="list-value">Web design</span>
-                </li>
-                <li className="list-item">
-                  <span className="list-label">Figma</span>
-                  <span className="list-value">Web design</span>
+                  <span className="list-value">Client Intake</span>
                 </li>
               </ul>
             </div>
@@ -687,22 +687,22 @@ function App() {
         </div>
 
         {/* CTA Button */}
-        <a 
-          href="#book" 
+        <a
+          href="#book"
           onClick={(e) => {
             e.preventDefault();
             setIsBookingOpen(true);
           }}
           className="book-session-btn"
         >
-          Book a session
+          Start a Project
         </a>
       </section>
 
       {/* Booking Overlay Modal */}
-      <BookingModal 
-        isOpen={isBookingOpen} 
-        onClose={() => setIsBookingOpen(false)} 
+      <BookingModal
+        isOpen={isBookingOpen}
+        onClose={() => setIsBookingOpen(false)}
       />
     </main>
   );
