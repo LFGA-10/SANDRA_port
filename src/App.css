@@ -48,7 +48,7 @@
   position: relative;
   z-index: 2;
   padding: 2.5rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
 }
 
 .bio-title {
@@ -161,11 +161,11 @@
     height: auto;
     gap: 2rem;
   }
-  
+
   .left-column {
     height: 600px;
   }
-  
+
   .top-grid {
     margin-bottom: 4rem;
   }
@@ -479,13 +479,16 @@
 .time-slots-list::-webkit-scrollbar {
   width: 4px;
 }
+
 .time-slots-list::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .time-slots-list::-webkit-scrollbar-thumb {
   background: #222;
   border-radius: 4px;
 }
+
 .time-slots-list::-webkit-scrollbar-thumb:hover {
   background: #333;
 }
@@ -692,18 +695,37 @@
 
 /* Animations */
 @keyframes fadeInOverlay {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUpCard {
-  from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes fadeInSlot {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fade-in {
@@ -716,30 +738,30 @@
     height: 95vh;
     max-height: 95vh;
   }
-  
+
   .booking-grid {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
     overflow-y: auto;
   }
-  
+
   .booking-left-panel {
     border-right: none;
     border-bottom: 1px solid #161616;
     padding: 2rem;
   }
-  
+
   .booking-right-panel {
     padding: 2rem;
     overflow-y: visible;
   }
-  
+
   .datetime-split {
     grid-template-columns: 1fr;
     gap: 2rem;
     height: auto;
   }
-  
+
   .time-slots-container {
     border-left: none;
     padding-left: 0;
